@@ -6,6 +6,7 @@ import BottomBarNav from './app/components/BottomBarNav';
 import { AuthProvider } from './app/auth/authContext';
 
 import { enableScreens } from 'react-native-screens';
+
 enableScreens();
 
 export default function App() {

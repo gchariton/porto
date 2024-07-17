@@ -1,26 +1,33 @@
-import React, { useState, useEffect } from 'react';
-import { Text, View, StyleSheet, Button, TouchableOpacity } from 'react-native';
-import { Camera } from 'expo-camera';
+import React, { useState } from 'react';
+import { Text, View, StyleSheet, Button } from 'react-native';
+import { CameraView, useCameraPermissions } from 'expo-camera';
 
 import Screen from './Screen';
 import TextHyperlink from '../components/TextHyperlink';
 import colors from '../config/colors';
 
 function ScannerScreen() {
-    const [hasPermission, setHasPermission] = useState(null);
     const [scanned, setScanned] = useState(false);
     const [result, setResult] = useState(null);
+    const [permission, requestPermission] = useCameraPermissions();
 
-    useEffect(() => {
-        const getCameraPermissions = async () => {
-            const { status } = await Camera.requestPermissionsAsync();
-            setHasPermission(status === 'granted');
-        };
+    if (!permission) {
+        return <View />;
+    }
 
-        getCameraPermissions();
-    }, []);
+    if (!permission.granted) {
+        return (
+            <View style={styles.container}>
+                <Text style={{ textAlign: 'center' }}>
+                    We need your permission to show the camera
+                </Text>
+                <Button onPress={requestPermission} title='grant permission' />
+            </View>
+        );
+    }
 
     const handleBarCodeScanned = ({ data }) => {
+        console.log('lalalalala');
         if (data) {
             setScanned(true);
             setResult(data);
@@ -43,28 +50,30 @@ function ScannerScreen() {
         }
     };
 
-    if (hasPermission === null) {
-        return <Text>Requesting for camera permission</Text>;
-    }
-    if (hasPermission === false) {
-        return <Text>No access to camera</Text>;
-    }
-
     return (
         <Screen>
             <View style={styles.camerabox}>
-                <Camera
+                <CameraView
+                    barcodeScannerSettings={{
+                        barcodeTypes: [
+                            'aztec',
+                            'ean13',
+                            'ean8',
+                            'qr',
+                            'pdf417',
+                            'upc_e',
+                            'datamatrix',
+                            'code39',
+                            'code93',
+                            'itf14',
+                            'codabar',
+                            'code128',
+                            'upc_a',
+                        ],
+                    }}
                     onBarCodeScanned={
                         scanned ? undefined : handleBarCodeScanned
                     }
-                    barCodeScannerSettings={{
-                        barCodeTypes: [
-                            Camera.Constants.BarCodeType.ean8,
-                            Camera.Constants.BarCodeType.ean13,
-                            Camera.Constants.BarCodeType.qr,
-                            Camera.Constants.BarCodeType.pdf417,
-                        ],
-                    }}
                     style={StyleSheet.absoluteFillObject}
                 />
                 {scanned && (
