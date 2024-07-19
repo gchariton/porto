@@ -17,15 +17,9 @@ function LoginScreen({}) {
     const [modalVisible, setModalVisible] = useState(false);
     const [user, setUser] = useState('');
     const [pass, setPass] = useState('');
-    const { isLoggedIn, setIsLoggedIn } = useAuth();
+    const { isLoggedIn, login, logout } = useAuth();
     const userRef = useRef(null);
     const passRef = useRef(null);
-
-    const handleLogout = () => {
-        setIsLoggedIn(false);
-        setUser('');
-        setPass('');
-    };
 
     const handleModalVisibility = () => {
         setModalVisible(false);
@@ -33,9 +27,9 @@ function LoginScreen({}) {
 
     const handleLogin = async () => {
         try {
-            const success = await authenticateUser(user, pass);
-            if (success) {
-                setIsLoggedIn(true);
+            const jwtToken = await authenticateUser(user, pass);
+            if (jwtToken) {
+                await login(jwtToken);
             } else {
                 console.log('Login failed');
             }
@@ -57,7 +51,7 @@ function LoginScreen({}) {
             {isLoggedIn ? (
                 <>
                     <Text style={styles.text}>Welcome {user}!</Text>
-                    <TouchableOpacity onPress={handleLogout}>
+                    <TouchableOpacity onPress={logout}>
                         <Text style={styles.link}>LOGOUT</Text>
                     </TouchableOpacity>
                 </>

@@ -71,8 +71,12 @@ function ScannerScreen() {
                             'upc_a',
                         ],
                     }}
-                    onBarCodeScanned={
-                        scanned ? undefined : handleBarCodeScanned
+                    onBarcodeScanned={
+                        scanned
+                            ? undefined
+                            : (data) => {
+                                  handleBarCodeScanned(data);
+                              }
                     }
                     style={StyleSheet.absoluteFillObject}
                 />

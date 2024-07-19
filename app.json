@@ -1,33 +1,36 @@
 {
-    "expo": {
-        "name": "porto",
-        "slug": "porto",
-        "version": "1.0.0",
-        "orientation": "portrait",
-        "icon": "./app/assets/icon.png",
-        "userInterfaceStyle": "light",
-        "splash": {
-            "image": "./app/assets/splash.png",
-            "resizeMode": "contain",
-            "backgroundColor": "#ffffff"
-        },
-        "ios": {
-            "supportsTablet": true
-        },
-        "android": {
-            "adaptiveIcon": {
-                "foregroundImage": "./app/assets/adaptive-icon.png",
-                "backgroundColor": "#ffffff"
-            },
-            "package": "gr.icloud.porto"
-        },
-        "web": {
-            "favicon": "./app/assets/favicon.png"
-        },
-        "extra": {
-            "eas": {
-                "projectId": "8620c65c-2b9e-460b-b26a-fa63415a884a"
-            }
-        }
-    }
+  "expo": {
+    "name": "porto",
+    "slug": "porto",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./app/assets/icon.png",
+    "userInterfaceStyle": "light",
+    "splash": {
+      "image": "./app/assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
+    "ios": {
+      "supportsTablet": true
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./app/assets/adaptive-icon.png",
+        "backgroundColor": "#ffffff"
+      },
+      "package": "gr.icloud.porto"
+    },
+    "web": {
+      "favicon": "./app/assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "8620c65c-2b9e-460b-b26a-fa63415a884a"
+      }
+    },
+    "plugins": [
+      "expo-secure-store"
+    ]
+  }
 }

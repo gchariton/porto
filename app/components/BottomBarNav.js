@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { View } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
@@ -7,7 +7,6 @@ import HomeScreen from '../screens/HomeScreen';
 import NewsScreen from '../screens/NewsScreen';
 import RadioScreen from '../screens/RadioScreen';
 import CryptoScreen from '../screens/CryptoScreen';
-
 import SettingsNav from './SettingsNav';
 
 import colors from '../config/colors';
@@ -45,12 +44,7 @@ const screenOptions = {
 };
 
 const BottomBarNav = () => {
-    //const { isLoggedIn } = useAuth();
-    const isLoggedIn = true;
-
-    useEffect(() => {
-        // Force re-render the component whenever isLoggedIn changes
-    }, [isLoggedIn]);
+    const { isLoggedIn } = useAuth();
 
     return (
         <Tab.Navigator screenOptions={tabBarOptions} initialRouteName={'Home'}>
@@ -68,17 +62,15 @@ const BottomBarNav = () => {
                                 />
                             ),
                             ...screenOptions,
-                            headerLeft: () => {
-                                return (
-                                    <View style={{ marginLeft: 20 }}>
-                                        <TabIcon
-                                            name='newspaper'
-                                            color={colors.yellow}
-                                            size={24}
-                                        />
-                                    </View>
-                                );
-                            },
+                            headerLeft: () => (
+                                <View style={{ marginLeft: 20 }}>
+                                    <TabIcon
+                                        name='newspaper'
+                                        color={colors.yellow}
+                                        size={24}
+                                    />
+                                </View>
+                            ),
                         }}
                     />
                     <Tab.Screen
@@ -93,17 +85,15 @@ const BottomBarNav = () => {
                                 />
                             ),
                             ...screenOptions,
-                            headerLeft: () => {
-                                return (
-                                    <View style={{ marginLeft: 20 }}>
-                                        <TabIcon
-                                            name='radio'
-                                            color={colors.yellow}
-                                            size={24}
-                                        />
-                                    </View>
-                                );
-                            },
+                            headerLeft: () => (
+                                <View style={{ marginLeft: 20 }}>
+                                    <TabIcon
+                                        name='radio'
+                                        color={colors.yellow}
+                                        size={24}
+                                    />
+                                </View>
+                            ),
                         }}
                     />
                 </>
@@ -116,17 +106,15 @@ const BottomBarNav = () => {
                         <TabIcon name='home' color={'green'} size={40} />
                     ),
                     ...screenOptions,
-                    headerLeft: () => {
-                        return (
-                            <View style={{ marginLeft: 20 }}>
-                                <TabIcon
-                                    name='home'
-                                    color={colors.yellow}
-                                    size={24}
-                                />
-                            </View>
-                        );
-                    },
+                    headerLeft: () => (
+                        <View style={{ marginLeft: 20 }}>
+                            <TabIcon
+                                name='home'
+                                color={colors.yellow}
+                                size={24}
+                            />
+                        </View>
+                    ),
                 }}
             />
             {isLoggedIn ? (
@@ -143,17 +131,15 @@ const BottomBarNav = () => {
                                 />
                             ),
                             ...screenOptions,
-                            headerLeft: () => {
-                                return (
-                                    <View style={{ marginLeft: 20 }}>
-                                        <TabIcon
-                                            name='bitcoin'
-                                            color={colors.yellow}
-                                            size={24}
-                                        />
-                                    </View>
-                                );
-                            },
+                            headerLeft: () => (
+                                <View style={{ marginLeft: 20 }}>
+                                    <TabIcon
+                                        name='bitcoin'
+                                        color={colors.yellow}
+                                        size={24}
+                                    />
+                                </View>
+                            ),
                         }}
                     />
                     <Tab.Screen
@@ -168,17 +154,15 @@ const BottomBarNav = () => {
                                 />
                             ),
                             ...screenOptions,
-                            headerLeft: () => {
-                                return (
-                                    <View style={{ marginLeft: 20 }}>
-                                        <TabIcon
-                                            name='dots-square'
-                                            color={colors.yellow}
-                                            size={24}
-                                        />
-                                    </View>
-                                );
-                            },
+                            headerLeft: () => (
+                                <View style={{ marginLeft: 20 }}>
+                                    <TabIcon
+                                        name='dots-square'
+                                        color={colors.yellow}
+                                        size={24}
+                                    />
+                                </View>
+                            ),
                         }}
                     />
                 </>

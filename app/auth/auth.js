@@ -20,19 +20,18 @@ const authenticateUser = async (user, pass) => {
             if (response.status === 200) {
                 console.log('Authentication successful');
                 const jwtToken = response.data.jwt;
-                console.log('JWT token:', jwtToken);
-                return true;
+                return jwtToken;
             } else {
                 console.log('Authentication failed:', response.data);
-                return false;
+                return null;
             }
         } catch (error) {
             console.error('Error during authentication:', error);
-            return false;
+            return null;
         }
     } else {
         console.log('Username or Password fields cannot be empty');
-        return false;
+        return null;
     }
 };
 
