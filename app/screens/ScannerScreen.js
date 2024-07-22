@@ -1,5 +1,11 @@
 import React, { useState } from 'react';
-import { Text, View, StyleSheet, Button } from 'react-native';
+import {
+    Text,
+    TouchableOpacity,
+    View,
+    StyleSheet,
+    ScrollView,
+} from 'react-native';
 import { CameraView, useCameraPermissions } from 'expo-camera';
 
 import Screen from './Screen';
@@ -27,7 +33,6 @@ function ScannerScreen() {
     }
 
     const handleBarCodeScanned = ({ data }) => {
-        console.log('lalalalala');
         if (data) {
             setScanned(true);
             setResult(data);
@@ -81,18 +86,37 @@ function ScannerScreen() {
                     style={StyleSheet.absoluteFillObject}
                 />
                 {scanned && (
-                    <Button
-                        title={'Tap to Scan Again'}
+                    <TouchableOpacity
+                        style={styles.button}
                         onPress={() => setScanned(false)}
-                    />
+                    >
+                        <Text style={styles.buttontext}>TAP TO SCAN AGAIN</Text>
+                    </TouchableOpacity>
                 )}
             </View>
-            <View style={styles.textbox}>{handleResult()}</View>
+            <ScrollView style={styles.textbox}>{handleResult()}</ScrollView>
         </Screen>
     );
 }
 
 const styles = StyleSheet.create({
+    button: {
+        alignItems: 'center',
+        alignSelf: 'center',
+        backgroundColor: colors.blue,
+        borderColor: colors.white,
+        borderBottomWidth: 1,
+        borderRadius: 5,
+        borderTopWidth: 1,
+        height: '40%',
+        justifyContent: 'center',
+        width: '90%',
+    },
+    buttontext: {
+        fontFamily: 'monospace',
+        fontSize: 20,
+        fontWeight: 'bold',
+    },
     camerabox: {
         flex: 1,
         justifyContent: 'center',
@@ -102,6 +126,7 @@ const styles = StyleSheet.create({
         color: colors.blue,
         flexWrap: 'wrap',
         fontFamily: 'monospace',
+        fontSize: 18,
         padding: 20,
         textDecorationLine: 'underline',
     },
@@ -109,14 +134,13 @@ const styles = StyleSheet.create({
         color: colors.white,
         flexWrap: 'wrap',
         fontFamily: 'monospace',
+        fontSize: 18,
         padding: 20,
     },
     textbox: {
         borderTopColor: colors.blue,
         borderTopWidth: 3,
-        alignItems: 'center',
         flex: 1,
-        justifyContent: 'center',
         width: '100%',
     },
 });
