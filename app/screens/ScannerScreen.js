@@ -1,16 +1,19 @@
 import React, { useState } from 'react';
 import {
+    StyleSheet,
+    ScrollView,
     Text,
     TouchableOpacity,
     View,
-    StyleSheet,
-    ScrollView,
 } from 'react-native';
 import { CameraView, useCameraPermissions } from 'expo-camera';
-
+import Linkify from 'linkify-it';
 import Screen from './Screen';
 import TextHyperlink from '../components/TextHyperlink';
 import colors from '../config/colors';
+
+// Initialize Linkify
+const linkify = new Linkify();
 
 function ScannerScreen() {
     const [scanned, setScanned] = useState(false);
@@ -27,7 +30,7 @@ function ScannerScreen() {
                 <Text style={{ textAlign: 'center' }}>
                     We need your permission to show the camera
                 </Text>
-                <Button onPress={requestPermission} title='grant permission' />
+                <Button onPress={requestPermission} title='Grant Permission' />
             </View>
         );
     }
@@ -42,17 +45,50 @@ function ScannerScreen() {
     const handleResult = () => {
         if (!result) return null;
 
-        if (result.startsWith('http')) {
-            return (
-                <TextHyperlink
-                    style={styles.resultlink}
-                    text={result}
-                    url={result}
-                />
-            );
-        } else {
-            return <Text style={styles.resulttext}>{result}</Text>;
+        // Parse text to identify URLs
+        const links = linkify.match(result) || [];
+        const parts = [];
+        let lastIndex = 0;
+
+        links.forEach((link) => {
+            // Add text between last URL and current URL
+            if (link.index > lastIndex) {
+                parts.push({
+                    text: result.substring(lastIndex, link.index),
+                    isLink: false,
+                });
+            }
+            // Add the URL itself
+            parts.push({
+                text: result.substring(link.index, link.lastIndex + 1),
+                isLink: true,
+            });
+            lastIndex = link.lastIndex + 1;
+        });
+
+        // Add any remaining text after the last URL
+        if (lastIndex < result.length) {
+            parts.push({ text: result.substring(lastIndex), isLink: false });
         }
+
+        return (
+            <View>
+                {parts.map((part, index) =>
+                    part.isLink ? (
+                        <TextHyperlink
+                            key={index}
+                            style={styles.resultlink}
+                            text={part.text}
+                            url={part.text}
+                        />
+                    ) : (
+                        <Text key={index} style={styles.resulttext}>
+                            {part.text}
+                        </Text>
+                    )
+                )}
+            </View>
+        );
     };
 
     return (
@@ -118,7 +154,7 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
     },
     camerabox: {
-        flex: 1,
+        flex: 0.5,
         justifyContent: 'center',
         width: '100%',
     },

@@ -2,13 +2,11 @@ import React, { useEffect, useRef, useState, useCallback } from 'react';
 import {
     FlatList,
     RefreshControl,
-    Share,
     StyleSheet,
     TouchableOpacity,
     View,
 } from 'react-native';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
-
 import * as Progress from 'react-native-progress';
 
 import Screen from './Screen';
@@ -16,7 +14,7 @@ import NewsTile from '../components/NewsTile';
 import colors from '../config/colors';
 import { fetchNews } from '../functions/fetchNews';
 
-function NewsScreen() {
+const NewsScreen = () => {
     const [sortedFeed, setSortedFeed] = useState([]);
     const [refreshing, setRefreshing] = useState(false);
     const [isProgressHidden, setIsProgressHidden] = useState(false);
@@ -41,33 +39,12 @@ function NewsScreen() {
         fetchData();
     }, []);
 
-    const handleShare = async (feed) => {
-        try {
-            await Share.share({
-                message: `${feed.title} - ${feed.id}`,
-            });
-        } catch (error) {
-            console.error(error.message);
-        }
-    };
-
     const onPressScrollToTop = () => {
         scrollRef.current?.scrollToOffset({ offset: 0, animated: true });
     };
 
-    const renderRightActions = useCallback(
-        () => (
-            <View style={styles.swipebox}>
-                <TouchableOpacity onPress={() => handleShare(item)}>
-                    <MaterialCommunityIcons
-                        name={'share'}
-                        color={colors.blue}
-                        size={36}
-                    />
-                </TouchableOpacity>
-            </View>
-        ),
-        []
+    const renderItem = ({ item }) => (
+        <NewsTile feed={item} formattedDate={formatDate(item.published)} />
     );
 
     return (
@@ -76,7 +53,7 @@ function NewsScreen() {
                 <View style={styles.progress}>
                     <Progress.CircleSnail
                         color={[colors.red, colors.green, colors.blue]}
-                        hidesWhenStopped={!isProgressHidden}
+                        hidesWhenStopped={isProgressHidden}
                         size={50}
                     />
                 </View>
@@ -94,34 +71,16 @@ function NewsScreen() {
                         onRefresh={onRefresh}
                         colors={[colors.red, colors.green, colors.blue]}
                         progressBackgroundColor={colors.primary}
-                        size={'large'}
+                        size='large'
                     />
                 }
-                renderItem={({ item, index }) => (
-                    <NewsTile
-                        feed={item}
-                        formattedDate={new Date(item.published)
-                            .toLocaleString('el-GR', {
-                                hour12: false,
-                                timeZone: 'Europe/Athens',
-                                day: '2-digit',
-                                month: '2-digit',
-                                year: 'numeric',
-                                hour: '2-digit',
-                                minute: '2-digit',
-                            })
-                            .replace(/\//g, '.')
-                            .replace(',', '')
-                            .substring(0, 16)}
-                        renderRightActions={renderRightActions}
-                    />
-                )}
-                keyExtractor={(item, index) => item.id + index}
+                renderItem={renderItem}
+                keyExtractor={(item) => item.id}
             />
             <View style={styles.upbutton}>
                 <TouchableOpacity onPress={onPressScrollToTop}>
                     <MaterialCommunityIcons
-                        name={'arrow-up-circle'}
+                        name='arrow-up-circle'
                         color={colors.blue}
                         size={58}
                     />
@@ -129,7 +88,23 @@ function NewsScreen() {
             </View>
         </Screen>
     );
-}
+};
+
+const formatDate = (date) => {
+    return new Date(date)
+        .toLocaleString('el-GR', {
+            hour12: false,
+            timeZone: 'Europe/Athens',
+            day: '2-digit',
+            month: '2-digit',
+            year: 'numeric',
+            hour: '2-digit',
+            minute: '2-digit',
+        })
+        .replace(/\//g, '.')
+        .replace(',', '')
+        .substring(0, 16);
+};
 
 const styles = StyleSheet.create({
     container: {
@@ -144,12 +119,6 @@ const styles = StyleSheet.create({
         margin: 20,
         position: 'absolute',
         zIndex: 1,
-    },
-    swipebox: {
-        justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor: colors.primary,
-        width: 80,
     },
     upbutton: {
         alignItems: 'center',

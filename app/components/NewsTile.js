@@ -1,41 +1,57 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { Share, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { Swipeable } from 'react-native-gesture-handler';
-import TextHyperlink from './TextHyperlink';
-
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 
+import TextHyperlink from './TextHyperlink';
 import colors from '../config/colors';
 import getDomain from '../functions/getDomain';
 
-const NewsTile = React.memo(({ feed, formattedDate, renderRightActions }) => {
+const NewsTile = ({ feed, formattedDate }) => {
+    const handleShare = async () => {
+        try {
+            await Share.share({
+                message: `${feed.title} - ${feed.id}`,
+            });
+        } catch (error) {
+            console.error(error.message);
+        }
+    };
+
+    const renderRightActions = () => (
+        <View style={styles.swipebox}>
+            <TouchableOpacity onPress={handleShare}>
+                <MaterialCommunityIcons
+                    name='share'
+                    color={colors.blue}
+                    size={36}
+                />
+            </TouchableOpacity>
+        </View>
+    );
+
     return (
         <Swipeable friction={1} renderRightActions={renderRightActions}>
             <View style={styles.container}>
                 <TextHyperlink
                     style={styles.title}
-                    text={String(feed.title)}
-                    url={String(feed.id)}
+                    text={feed.title}
+                    url={feed.id}
                 />
                 <View style={styles.meta}>
                     <View style={styles.dateContainer}>
                         <MaterialCommunityIcons
-                            name={'clock-outline'}
+                            name='clock-outline'
                             color={colors.blue}
                         />
-                        <Text style={styles.pubdate}>
-                            {' '}
-                            {formattedDate.substring(0, 16)}
-                        </Text>
+                        <Text style={styles.pubdate}>{formattedDate}</Text>
                     </View>
-                    <View>
-                        <Text style={styles.source}>{getDomain(feed.id)}</Text>
-                    </View>
+                    <Text style={styles.source}>{getDomain(feed.id)}</Text>
                 </View>
             </View>
         </Swipeable>
     );
-});
+};
 
 const styles = StyleSheet.create({
     container: {
@@ -70,6 +86,12 @@ const styles = StyleSheet.create({
         color: colors.white,
         fontFamily: 'monospace',
         fontSize: 16,
+    },
+    swipebox: {
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: colors.primary,
+        width: 80,
     },
 });
 

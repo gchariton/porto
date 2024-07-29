@@ -44,12 +44,13 @@ function AboutScreen({}) {
 
 const styles = StyleSheet.create({
     attention: {
+        alignSelf: 'center',
         borderColor: colors.red,
         borderRadius: 10,
         borderWidth: 2,
         padding: 5,
         width: '90%',
-        margin: 10,
+        marginTop: 10,
     },
     container: {
         alignItems: 'center',
