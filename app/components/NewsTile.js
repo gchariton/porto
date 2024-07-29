@@ -44,7 +44,7 @@ const NewsTile = ({ feed, formattedDate }) => {
                             name='clock-outline'
                             color={colors.blue}
                         />
-                        <Text style={styles.pubdate}>{formattedDate}</Text>
+                        <Text style={styles.pubdate}> {formattedDate}</Text>
                     </View>
                     <Text style={styles.source}>{getDomain(feed.id)}</Text>
                 </View>
@@ -75,16 +75,16 @@ const styles = StyleSheet.create({
         width: '100%',
     },
     pubdate: {
-        fontFamily: 'monospace',
+        fontFamily: 'Roboto',
         color: colors.blue,
     },
     source: {
-        fontFamily: 'monospace',
+        fontFamily: 'Roboto',
         color: 'gray',
     },
     title: {
         color: colors.white,
-        fontFamily: 'monospace',
+        fontFamily: 'Roboto',
         fontSize: 16,
     },
     swipebox: {

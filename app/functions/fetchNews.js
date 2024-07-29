@@ -27,5 +27,6 @@ export const fetchNews = async (
         console.error('Error fetching or parsing RSS feeds:', err);
     } finally {
         setRefreshing(false);
+        setIsProgressHidden(true); // Ensure this is set in finally block
     }
 };

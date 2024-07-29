@@ -28,7 +28,7 @@ const NewsScreen = () => {
     const fetchData = async () => {
         setIsProgressHidden(false);
         try {
-            await fetchNews(setSortedFeed, setRefreshing);
+            await fetchNews(setSortedFeed, setRefreshing, setIsProgressHidden);
         } finally {
             setIsProgressHidden(true);
         }
@@ -39,12 +39,15 @@ const NewsScreen = () => {
         fetchData();
     }, []);
 
-    const onPressScrollToTop = () => {
+    const onPressScrollToTop = useCallback(() => {
         scrollRef.current?.scrollToOffset({ offset: 0, animated: true });
-    };
+    }, []);
 
-    const renderItem = ({ item }) => (
-        <NewsTile feed={item} formattedDate={formatDate(item.published)} />
+    const renderItem = useCallback(
+        ({ item }) => (
+            <NewsTile feed={item} formattedDate={formatDate(item.published)} />
+        ),
+        []
     );
 
     return (
