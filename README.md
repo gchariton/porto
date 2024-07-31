@@ -20,7 +20,13 @@ As well as bugs lol.
 
 ## :camera: Screenshots
 
-![Screenshot_1712825625](https://github.com/gchariton/alinon/assets/29805888/ebf88b83-0267-48f1-8903-0018def6716e) ![Screenshot_1712825641](https://github.com/gchariton/alinon/assets/29805888/e0a1629c-96ed-4345-9bd3-4af52a3ff7e3) ![Screenshot_1712825651](https://github.com/gchariton/alinon/assets/29805888/19bed380-1005-44b3-b655-22d0b275f5c6) ![Screenshot_1712825664](https://github.com/gchariton/alinon/assets/29805888/9e4536f2-0be1-46c0-8e1c-08cb0372c2a3) ![Screenshot_1712825676](https://github.com/gchariton/alinon/assets/29805888/e2447db5-e3c1-49e2-9699-566d41379493)
+![Screenshot_1722416710](https://github.com/user-attachments/assets/4e4ad519-bb9c-499b-941a-a801dc5bddc9)
+![Screenshot_1722416705](https://github.com/user-attachments/assets/80076845-38c9-444e-8cc9-b72bf97abed7)
+![Screenshot_1722416693](https://github.com/user-attachments/assets/92069269-e8e8-4df0-b34f-e977a24cd1dd)
+![Screenshot_1722416686](https://github.com/user-attachments/assets/cafaa20f-54bd-4c67-b90b-420c074d27b3)
+![Screenshot_1722416680](https://github.com/user-attachments/assets/117720ac-5ffd-4eec-96b7-143d7fe759d7)
+![Screenshot_1722416671](https://github.com/user-attachments/assets/d6b01ea7-ad5f-4fd4-b1b5-09b572358c5d)
+
 
 ## :hammer_and_wrench: Framework / language / libraries / tools used
 
@@ -42,6 +48,4 @@ npx expo start
 
 ## :copyright: License
 
-MIT © George Charitonidis
-
-[![icloudgr_orange_transparent](https://github.com/gchariton/alinon/assets/29805888/d677639f-6cf2-4c86-80c8-e659d908d616)](http://icloud.gr)
+MIT © George Charitonidis :: http://icloud.gr
