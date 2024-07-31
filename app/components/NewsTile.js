@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { Share, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { Swipeable } from 'react-native-gesture-handler';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
@@ -95,4 +95,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default NewsTile;
+export default memo(NewsTile);
