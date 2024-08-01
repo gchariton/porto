@@ -6,7 +6,7 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 import HomeScreen from '../screens/HomeScreen';
 import NewsScreen from '../screens/NewsScreen';
 import RadioScreen from '../screens/RadioScreen';
-import CryptoScreen from '../screens/CryptoScreen';
+import ScannerScreen from '../screens/ScannerScreen';
 import SettingsNav from './SettingsNav';
 
 import colors from '../config/colors';
@@ -120,12 +120,12 @@ const BottomBarNav = () => {
             {isLoggedIn ? (
                 <>
                     <Tab.Screen
-                        name='Crypto'
-                        component={CryptoScreen}
+                        name='Scanner'
+                        component={ScannerScreen}
                         options={{
                             tabBarIcon: ({ color, size }) => (
                                 <TabIcon
-                                    name='bitcoin'
+                                    name='qrcode-scan'
                                     color={color}
                                     size={size}
                                 />
@@ -134,7 +134,7 @@ const BottomBarNav = () => {
                             headerLeft: () => (
                                 <View style={{ marginLeft: 20 }}>
                                     <TabIcon
-                                        name='bitcoin'
+                                        name='qrcode-scan'
                                         color={colors.yellow}
                                         size={24}
                                     />

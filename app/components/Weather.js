@@ -125,7 +125,7 @@ const Weather = () => {
     }, [weatherData]);
 
     return (
-        <View>
+        <View style={styles.container}>
             <View style={styles.location}>
                 <TouchableOpacity onPress={handleWeather}>
                     <MaterialCommunityIcons
@@ -151,10 +151,15 @@ const Weather = () => {
 };
 
 const styles = StyleSheet.create({
+    container: {
+        alignItems: 'center',
+        flex: 1,
+        justifyContent: 'center',
+    },
     info: {
         alignItems: 'center',
-        flex: 2,
-        justifyContent: 'flex-start',
+        flex: 1,
+        justifyContent: 'center',
     },
     line: {
         flexDirection: 'row',
@@ -170,7 +175,7 @@ const styles = StyleSheet.create({
     locationText: {
         color: colors.green,
         fontFamily: 'monospace',
-        fontSize: 14,
+        fontSize: 20,
         fontWeight: 'bold',
         padding: 3,
     },
@@ -184,7 +189,7 @@ const styles = StyleSheet.create({
     weatherText: {
         fontFamily: 'monospace',
         fontWeight: 'bold',
-        color: 'gray',
+        color: colors.white,
         padding: 5,
     },
     weatherValues: {
