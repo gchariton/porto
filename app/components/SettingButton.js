@@ -41,9 +41,9 @@ const styles = StyleSheet.create({
     },
     text: {
         color: colors.secondary,
-        fontFamily: 'monospace',
+        fontFamily: 'Roboto',
         fontWeight: 'bold',
-        fontSize: 18,
+        fontSize: 20,
     },
 
     textbox: {

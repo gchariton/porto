@@ -2,6 +2,7 @@ import React, { useCallback, useRef, useEffect, useState } from 'react';
 import { Animated, StyleSheet, Text, View } from 'react-native';
 import { useIsFocused } from '@react-navigation/native';
 
+import Weather from '../components/Weather';
 import TextHyperlink from '../components/TextHyperlink';
 
 import Screen from './Screen';
@@ -29,7 +30,7 @@ const HomeScreen = ({ navigation }) => {
         <Screen>
             <View style={styles.container}>
                 <View style={styles.containerTop}>
-                    <Animated.Image
+                    {/* <Animated.Image
                         style={[styles.logo, { transform: [{ translateY }] }]}
                         source={logoImage}
                     />
@@ -37,7 +38,9 @@ const HomeScreen = ({ navigation }) => {
                         style={styles.text}
                         url='http://icloud.gr'
                         text='Hello George!'
-                    />
+                    /> */}
+
+                    <Weather />
                 </View>
                 <View style={styles.containerBottom}>
                     <LoginScreen />
@@ -60,9 +63,11 @@ const styles = StyleSheet.create({
         width: '90%',
     },
     containerTop: {
+        height: '100%',
         alignItems: 'center',
-        flex: 1,
-        justifyContent: 'flex-end',
+        flex: 3,
+        justifyContent: 'center',
+        width: '100%',
     },
     logo: {
         height: 100,

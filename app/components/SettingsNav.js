@@ -3,8 +3,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 
 import SettingsScreen from '../screens/SettingsScreen';
 import NewsSettingsScreen from '../screens/NewsSettingsScreen';
-import ScannerScreen from '../screens/ScannerScreen';
-import WeatherScreen from '../screens/WeatherScreen';
+import CryptoScreen from '../screens/CryptoScreen';
 import AboutScreen from '../screens/AboutScreen';
 
 import colors from '../config/colors';
@@ -32,19 +31,11 @@ function SettingsNav({}) {
                 }}
             />
             <Stack.Screen
-                name='ScannerScreen'
-                component={ScannerScreen}
+                name='CryptoScreen'
+                component={CryptoScreen}
                 options={{
                     ...headerOptions,
-                    title: 'Scanner',
-                }}
-            />
-            <Stack.Screen
-                name='WeatherScreen'
-                component={WeatherScreen}
-                options={{
-                    ...headerOptions,
-                    title: 'Weather',
+                    title: 'Crypto',
                 }}
             />
             <Stack.Screen

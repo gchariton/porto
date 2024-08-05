@@ -16,12 +16,8 @@ function SettingsScreen() {
                     onPress={() => navigation.navigate('NewsSettingsScreen')}
                 />
                 <SettingButton
-                    text='Scanner'
-                    onPress={() => navigation.navigate('ScannerScreen')}
-                />
-                <SettingButton
-                    text='Weather'
-                    onPress={() => navigation.navigate('WeatherScreen')}
+                    text='Crypto'
+                    onPress={() => navigation.navigate('CryptoScreen')}
                 />
                 <SettingButton
                     text='About'

@@ -1,5 +1,11 @@
 import React from 'react';
-import { StyleSheet, TouchableOpacity, View, Text } from 'react-native';
+import {
+    StyleSheet,
+    Text,
+    TouchableOpacity,
+    Vibration,
+    View,
+} from 'react-native';
 import { CameraView, useCameraPermissions } from 'expo-camera';
 import colors from '../config/colors';
 
@@ -21,6 +27,11 @@ function Scanner({ onScan, scanned, setScanned }) {
         );
     }
 
+    const handleBarcodeScanned = (data) => {
+        Vibration.vibrate([0, 100, 0, 100]);
+        onScan(data);
+    };
+
     return (
         <View style={styles.camerabox}>
             <CameraView
@@ -41,7 +52,7 @@ function Scanner({ onScan, scanned, setScanned }) {
                         'upc_a',
                     ],
                 }}
-                onBarcodeScanned={scanned ? undefined : (data) => onScan(data)}
+                onBarcodeScanned={scanned ? undefined : handleBarcodeScanned}
                 style={StyleSheet.absoluteFillObject}
             />
             {scanned && (
