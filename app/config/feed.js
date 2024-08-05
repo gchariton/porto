@@ -9,6 +9,7 @@ const news = [
     'https://www.newsbomb.gr/oles-oi-eidhseis?format=feed&type=rss',
     'https://www.ot.gr/feed',
     'https://www.protothema.gr/rss',
+    'https://www.sportal.gr/feed/',
     'https://www.sport24.gr/newsfeed.xml?profile=public',
     'https://www.techblog.gr/feed/',
     'https://www.techgear.gr/feed',
