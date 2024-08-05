@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 import LottieView from 'lottie-react-native';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 import handlePlayPause from '../functions/handlePlayPause';
 import colors from '../config/colors';
@@ -66,9 +67,21 @@ const RadioTile = ({ station }) => {
                         )
                     }
                 >
-                    <Text style={styles.text}>
-                        {isPlaying ? 'STOP' : 'PLAY'}
-                    </Text>
+                    <View style={styles.icon}>
+                        {isPlaying ? (
+                            <MaterialCommunityIcons
+                                name={'pause'}
+                                color={colors.white}
+                                size={30}
+                            />
+                        ) : (
+                            <MaterialCommunityIcons
+                                name={'play'}
+                                color={colors.white}
+                                size={30}
+                            />
+                        )}
+                    </View>
                 </Pressable>
             </View>
         </View>
@@ -99,6 +112,10 @@ const styles = StyleSheet.create({
         padding: 10,
         width: '100%',
     },
+    icon: {
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
     loading: {
         alignItems: 'center',
         height: '100%',
@@ -114,8 +131,8 @@ const styles = StyleSheet.create({
     },
     text: {
         color: colors.white,
-        fontFamily: 'monospace',
-        fontSize: 18,
+        fontFamily: 'Roboto',
+        fontSize: 16,
         fontWeight: 'bold',
         padding: 5,
         textShadowColor: colors.secondary,

@@ -32,7 +32,8 @@ const styles = StyleSheet.create({
     },
     text: {
         color: colors.white,
-        fontFamily: 'monospace',
+        fontFamily: 'Roboto',
+        fontSize: 16,
         margin: 10,
     },
 });
