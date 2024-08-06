@@ -4,9 +4,11 @@ An all-in-one Android app for personal and testing purposes only. Maybe.
 
 :triangular_flag_on_post: Use it at your own risk.
 
+
 ## :calling: Motivation
 
 My first steps (giant leaps maybe) in creating an android mobile app.
+
 
 ## :construction: Build status
 
@@ -14,9 +16,11 @@ Under heavy construction, adding fixes and features every day.
 
 As well as bugs lol.
 
+
 ## :ant: Known bugs
 
 // ...
+
 
 ## :camera: Screenshots
 
@@ -49,6 +53,7 @@ npm install
 ```bash
 npx expo start
 ```
+
 
 ## :copyright: License
 
