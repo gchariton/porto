@@ -10,7 +10,6 @@ import ScannerScreen from '../screens/ScannerScreen';
 import SettingsNav from './SettingsNav';
 
 import colors from '../config/colors';
-import { useAuth } from '../auth/authContext';
 
 const Tab = createBottomTabNavigator();
 
@@ -44,60 +43,46 @@ const screenOptions = {
 };
 
 const BottomBarNav = () => {
-    const { isLoggedIn } = useAuth();
-
     return (
         <Tab.Navigator screenOptions={tabBarOptions} initialRouteName={'Home'}>
-            {isLoggedIn ? (
-                <>
-                    <Tab.Screen
-                        name='News'
-                        component={NewsScreen}
-                        options={{
-                            tabBarIcon: ({ color, size }) => (
-                                <TabIcon
-                                    name='newspaper'
-                                    color={color}
-                                    size={size}
-                                />
-                            ),
-                            ...screenOptions,
-                            headerLeft: () => (
-                                <View style={{ marginLeft: 20 }}>
-                                    <TabIcon
-                                        name='newspaper'
-                                        color={colors.yellow}
-                                        size={24}
-                                    />
-                                </View>
-                            ),
-                        }}
-                    />
-                    <Tab.Screen
-                        name='Radio'
-                        component={RadioScreen}
-                        options={{
-                            tabBarIcon: ({ color, size }) => (
-                                <TabIcon
-                                    name='radio'
-                                    color={color}
-                                    size={size}
-                                />
-                            ),
-                            ...screenOptions,
-                            headerLeft: () => (
-                                <View style={{ marginLeft: 20 }}>
-                                    <TabIcon
-                                        name='radio'
-                                        color={colors.yellow}
-                                        size={24}
-                                    />
-                                </View>
-                            ),
-                        }}
-                    />
-                </>
-            ) : null}
+            <Tab.Screen
+                name='News'
+                component={NewsScreen}
+                options={{
+                    tabBarIcon: ({ color, size }) => (
+                        <TabIcon name='newspaper' color={color} size={size} />
+                    ),
+                    ...screenOptions,
+                    headerLeft: () => (
+                        <View style={{ marginLeft: 20 }}>
+                            <TabIcon
+                                name='newspaper'
+                                color={colors.yellow}
+                                size={24}
+                            />
+                        </View>
+                    ),
+                }}
+            />
+            <Tab.Screen
+                name='Radio'
+                component={RadioScreen}
+                options={{
+                    tabBarIcon: ({ color, size }) => (
+                        <TabIcon name='radio' color={color} size={size} />
+                    ),
+                    ...screenOptions,
+                    headerLeft: () => (
+                        <View style={{ marginLeft: 20 }}>
+                            <TabIcon
+                                name='radio'
+                                color={colors.yellow}
+                                size={24}
+                            />
+                        </View>
+                    ),
+                }}
+            />
             <Tab.Screen
                 name='Home'
                 component={HomeScreen}
@@ -117,56 +102,44 @@ const BottomBarNav = () => {
                     ),
                 }}
             />
-            {isLoggedIn ? (
-                <>
-                    <Tab.Screen
-                        name='Scanner'
-                        component={ScannerScreen}
-                        options={{
-                            tabBarIcon: ({ color, size }) => (
-                                <TabIcon
-                                    name='qrcode-scan'
-                                    color={color}
-                                    size={size}
-                                />
-                            ),
-                            ...screenOptions,
-                            headerLeft: () => (
-                                <View style={{ marginLeft: 20 }}>
-                                    <TabIcon
-                                        name='qrcode-scan'
-                                        color={colors.yellow}
-                                        size={24}
-                                    />
-                                </View>
-                            ),
-                        }}
-                    />
-                    <Tab.Screen
-                        name='More'
-                        component={SettingsNav}
-                        options={{
-                            tabBarIcon: ({ color, size }) => (
-                                <TabIcon
-                                    name='dots-square'
-                                    color={color}
-                                    size={size}
-                                />
-                            ),
-                            ...screenOptions,
-                            headerLeft: () => (
-                                <View style={{ marginLeft: 20 }}>
-                                    <TabIcon
-                                        name='dots-square'
-                                        color={colors.yellow}
-                                        size={24}
-                                    />
-                                </View>
-                            ),
-                        }}
-                    />
-                </>
-            ) : null}
+            <Tab.Screen
+                name='Scanner'
+                component={ScannerScreen}
+                options={{
+                    tabBarIcon: ({ color, size }) => (
+                        <TabIcon name='qrcode-scan' color={color} size={size} />
+                    ),
+                    ...screenOptions,
+                    headerLeft: () => (
+                        <View style={{ marginLeft: 20 }}>
+                            <TabIcon
+                                name='qrcode-scan'
+                                color={colors.yellow}
+                                size={24}
+                            />
+                        </View>
+                    ),
+                }}
+            />
+            <Tab.Screen
+                name='More'
+                component={SettingsNav}
+                options={{
+                    tabBarIcon: ({ color, size }) => (
+                        <TabIcon name='dots-square' color={color} size={size} />
+                    ),
+                    ...screenOptions,
+                    headerLeft: () => (
+                        <View style={{ marginLeft: 20 }}>
+                            <TabIcon
+                                name='dots-square'
+                                color={colors.yellow}
+                                size={24}
+                            />
+                        </View>
+                    ),
+                }}
+            />
         </Tab.Navigator>
     );
 };

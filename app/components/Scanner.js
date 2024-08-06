@@ -1,5 +1,6 @@
 import React from 'react';
 import {
+    Button,
     StyleSheet,
     Text,
     TouchableOpacity,
@@ -18,8 +19,8 @@ function Scanner({ onScan, scanned, setScanned }) {
 
     if (!permission.granted) {
         return (
-            <View style={styles.container}>
-                <Text style={{ textAlign: 'center' }}>
+            <View style={styles.permissionbox}>
+                <Text style={styles.permissiontext}>
                     We need your permission to show the camera
                 </Text>
                 <Button onPress={requestPermission} title='Grant Permission' />
@@ -89,6 +90,15 @@ const styles = StyleSheet.create({
         flex: 0.5,
         justifyContent: 'center',
         width: '100%',
+    },
+    permissionbox: {
+        padding: 30,
+    },
+    permissiontext: {
+        color: colors.white,
+        fontFamily: 'Roboto',
+        padding: 10,
+        textAlign: 'center',
     },
 });
 

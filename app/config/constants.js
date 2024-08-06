@@ -1,8 +1,3 @@
-AUTH = {
-    API_URL: 'https://api-dev.laiki.eu/auth/local',
-    ORIGIN: 'https://wms-dev.laiki.eu',
-};
-
 CRYPTO = {
     API_KEY: 'b0a5949f-b36c-479d-8cae-633c92223b01',
     API_URL:
@@ -27,7 +22,6 @@ WEATHER = {
 };
 
 export default {
-    AUTH,
     CRYPTO,
     RADIOSTATIONS,
     WEATHER,
