@@ -7,7 +7,7 @@ const authenticate = async () => {
         if (!hasHardware) {
             Alert.alert(
                 '⚡ Error',
-                '📱 This device seems that does not support biometric authentication.'
+                'This device seems that does not support biometric authentication.'
             );
             return;
         }
@@ -16,14 +16,14 @@ const authenticate = async () => {
         if (!isEnrolled) {
             Alert.alert(
                 '⚡ Error',
-                '☝️ No biometric authentication methods enrolled.'
+                'No biometric authentication methods enrolled.'
             );
             return;
         }
 
         const result = await LocalAuthentication.authenticateAsync({
-            promptMessage: '☝️ Authenticate with fingerprint.',
-            fallbackLabel: '🔑 Use passcode.',
+            promptMessage: 'Authenticate with fingerprint.',
+            fallbackLabel: 'Use passcode.',
         });
 
         if (result.success) {

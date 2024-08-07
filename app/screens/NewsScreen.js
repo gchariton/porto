@@ -126,7 +126,7 @@ const styles = StyleSheet.create({
     upbutton: {
         alignItems: 'center',
         backgroundColor: colors.primary,
-        borderRadius: 29,
+        borderRadius: 100,
         bottom: 20,
         height: 58,
         justifyContent: 'center',
