@@ -9,7 +9,7 @@ const authenticate = async () => {
                 '⚡ Error',
                 'This device seems that does not support biometric authentication.'
             );
-            return;
+            return false;
         }
 
         const isEnrolled = await LocalAuthentication.isEnrolledAsync();
@@ -18,7 +18,7 @@ const authenticate = async () => {
                 '⚡ Error',
                 'No biometric authentication methods enrolled.'
             );
-            return;
+            return false;
         }
 
         const result = await LocalAuthentication.authenticateAsync({
@@ -27,9 +27,11 @@ const authenticate = async () => {
         });
 
         if (result.success) {
-            Alert.alert('⭐ Success', 'Authenticated successfully!');
+            return true;
+            // Alert.alert('⭐ Success', 'Authenticated successfully!');
         } else {
             Alert.alert('⚡ Error', 'Authentication failed.');
+            return false;
         }
     } catch (error) {
         console.error(error);
@@ -37,6 +39,7 @@ const authenticate = async () => {
             '⚡ Error',
             'An unexpected error occurred during authentication.'
         );
+        return false;
     }
 };
 
