@@ -20,6 +20,10 @@ function SettingsScreen() {
                     onPress={() => navigation.navigate('CryptoScreen')}
                 />
                 <SettingButton
+                    text='Tzoker'
+                    onPress={() => navigation.navigate('TzokerScreen')}
+                />
+                <SettingButton
                     text='About'
                     onPress={() => navigation.navigate('AboutScreen')}
                 />

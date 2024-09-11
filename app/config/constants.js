@@ -17,6 +17,10 @@ const RADIOSTATIONS = [
     { name: 'MANCODE', url: 'https://sheepfish.radioca.st/stream' },
 ];
 
+TZOKER = {
+    API_URL: 'https://api.opap.gr/draws/v3.0/5104/last-result-and-active',
+};
+
 WEATHER = {
     API_URL: 'https://api.open-meteo.com/v1/forecast?',
 };
@@ -24,5 +28,6 @@ WEATHER = {
 export default {
     CRYPTO,
     RADIOSTATIONS,
+    TZOKER,
     WEATHER,
 };
