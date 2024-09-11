@@ -1,17 +1,18 @@
 import React, { useState } from 'react';
 import { StyleSheet, ScrollView, Text, View } from 'react-native';
 import Linkify from 'linkify-it';
+import { useIsFocused } from '@react-navigation/native';
 import Screen from './Screen';
 import TextHyperlink from '../components/TextHyperlink';
 import Scanner from '../components/Scanner';
 import colors from '../config/colors';
 
-// Initialize Linkify
 const linkify = new Linkify();
 
 function ScannerScreen() {
     const [scanned, setScanned] = useState(false);
     const [result, setResult] = useState(null);
+    const isFocused = useIsFocused();
 
     const handleBarCodeScanned = ({ data }) => {
         if (data) {
@@ -75,11 +76,14 @@ function ScannerScreen() {
 
     return (
         <Screen>
-            <Scanner
-                onScan={handleBarCodeScanned}
-                scanned={scanned}
-                setScanned={setScanned}
-            />
+            {isFocused && (
+                <Scanner
+                    onScan={handleBarCodeScanned}
+                    scanned={scanned}
+                    setScanned={setScanned}
+                />
+            )}
+
             <ScrollView style={styles.textbox}>{handleResult()}</ScrollView>
         </Screen>
     );
