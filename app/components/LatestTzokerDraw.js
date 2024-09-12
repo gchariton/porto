@@ -5,13 +5,17 @@ import NumberFrame from '../components/NumberFrame';
 import colors from '../config/colors';
 import fetchLatestTzokerDraw from '../functions/fetchLatestTzokerDraw';
 
-function LatestTzokerDraw({}) {
+function LatestTzokerDraw() {
     const [tzokerDraw, setTzokerDraw] = useState(null);
+    const [orderedNumbers, setOrderedNumbers] = useState([]);
 
     const fetchDrawData = async () => {
         try {
             const data = await fetchLatestTzokerDraw();
             setTzokerDraw(data);
+            setOrderedNumbers(
+                data.last.winningNumbers.list.sort((a, b) => a - b)
+            );
         } catch (error) {
             console.error('Error fetching latest tzoker draw:', error);
         }
@@ -21,56 +25,42 @@ function LatestTzokerDraw({}) {
         fetchDrawData();
     }, []);
 
+    if (!tzokerDraw) return null; // Early return if no data
+
+    // Format date
+    const formattedDate = new Date(Number(tzokerDraw.last.drawTime))
+        .toString()
+        .substring(0, 15);
+
+    // Render ordered numbers
+    const renderNumberFrames = orderedNumbers.map((num, index) => (
+        <NumberFrame key={index} number={num} />
+    ));
+
     return (
         <View style={styles.latestdraw}>
-            {tzokerDraw && (
-                <>
-                    <View style={styles.drawtime}>
-                        <Text style={styles.text}>
-                            {new Date(Number(tzokerDraw.last.drawTime))
-                                .toString()
-                                .substring(0, 15)}
-                        </Text>
-                        <TouchableOpacity
-                            style={styles.refresh}
-                            onPress={fetchDrawData}
-                        >
-                            <Text style={styles.text}>refresh</Text>
-                        </TouchableOpacity>
-                    </View>
-                    <View style={styles.drawbox}>
-                        <View style={styles.fivenumbers}>
-                            <NumberFrame
-                                number={tzokerDraw.last.winningNumbers.list[0]}
-                            />
-                            <NumberFrame
-                                number={tzokerDraw.last.winningNumbers.list[1]}
-                            />
-                            <NumberFrame
-                                number={tzokerDraw.last.winningNumbers.list[2]}
-                            />
-                            <NumberFrame
-                                number={tzokerDraw.last.winningNumbers.list[3]}
-                            />
-                            <NumberFrame
-                                number={tzokerDraw.last.winningNumbers.list[4]}
-                            />
-                        </View>
-                        <View>
-                            <NumberFrame
-                                number={tzokerDraw.last.winningNumbers.bonus[0]}
-                            />
-                        </View>
-                    </View>
-                    <Text style={styles.resulttext}>
-                        {tzokerDraw.last.prizeCategories[0].winners === 0
-                            ? 'Result: JACKPOT!'
-                            : 'Result: ' +
-                              tzokerDraw.last.prizeCategories[0].winners +
-                              ' winners!'}
-                    </Text>
-                </>
-            )}
+            <View style={styles.drawtime}>
+                <Text style={styles.text}>{formattedDate}</Text>
+                <TouchableOpacity
+                    style={styles.refresh}
+                    onPress={fetchDrawData}
+                >
+                    <Text style={styles.text}>refresh</Text>
+                </TouchableOpacity>
+            </View>
+            <View style={styles.drawbox}>
+                <View style={styles.fivenumbers}>{renderNumberFrames}</View>
+                <View>
+                    <NumberFrame
+                        number={tzokerDraw.last.winningNumbers.bonus[0]}
+                    />
+                </View>
+            </View>
+            <Text style={styles.resulttext}>
+                {tzokerDraw.last.prizeCategories[0].winners === 0
+                    ? 'Result: JACKPOT!'
+                    : `Result: ${tzokerDraw.last.prizeCategories[0].winners} winners!`}
+            </Text>
         </View>
     );
 }
