@@ -3,11 +3,7 @@ import axios from 'axios';
 
 import feed from '../config/feed';
 
-export const fetchNews = async (
-    setSortedFeed,
-    setRefreshing,
-    setIsProgressHidden
-) => {
+export const fetchNews = async (setSortedFeed, setRefreshing) => {
     try {
         const fetchRequests = feed.news.map(async (url) => {
             const response = await axios.get(url);
@@ -27,6 +23,5 @@ export const fetchNews = async (
         console.error('Error fetching or parsing RSS feeds:', err);
     } finally {
         setRefreshing(false);
-        setIsProgressHidden(true);
     }
 };

@@ -25,12 +25,12 @@ function LatestTzokerDraw() {
         fetchDrawData();
     }, []);
 
-    if (!tzokerDraw) return null; // Early return if no data
+    if (!tzokerDraw) return null;
 
     // Format date
-    const formattedDate = new Date(Number(tzokerDraw.last.drawTime))
-        .toString()
-        .substring(0, 15);
+    const formattedDate = new Date(
+        Number(tzokerDraw.last.drawTime)
+    ).toDateString();
 
     // Render ordered numbers
     const renderNumberFrames = orderedNumbers.map((num, index) => (
@@ -58,8 +58,12 @@ function LatestTzokerDraw() {
             </View>
             <Text style={styles.resulttext}>
                 {tzokerDraw.last.prizeCategories[0].winners === 0
-                    ? 'Result: JACKPOT!'
-                    : `Result: ${tzokerDraw.last.prizeCategories[0].winners} winners!`}
+                    ? 'Αποτέλεσμα: ΤΖΑΚ ΠΟΤ!'
+                    : tzokerDraw.last.prizeCategories[0].winners === 1
+                    ? `Αποτέλεσμα: ${tzokerDraw.last.prizeCategories[0].winners}{' '}
+                νικητής!`
+                    : `Αποτέλεσμα: ${tzokerDraw.last.prizeCategories[0].winners}{' '}
+                νικητές!`}
             </Text>
         </View>
     );
@@ -101,6 +105,7 @@ const styles = StyleSheet.create({
         flexWrap: 'wrap',
         fontFamily: 'Roboto',
         fontWeight: 'bold',
+        letterSpacing: 2,
         padding: 10,
     },
     text: {

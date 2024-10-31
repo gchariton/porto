@@ -7,8 +7,6 @@ import {
     View,
 } from 'react-native';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
-import * as Progress from 'react-native-progress';
-
 import Screen from './Screen';
 import NewsTile from '../components/NewsTile';
 import colors from '../config/colors';
@@ -17,7 +15,6 @@ import { fetchNews } from '../functions/fetchNews';
 const NewsScreen = () => {
     const [sortedFeed, setSortedFeed] = useState([]);
     const [refreshing, setRefreshing] = useState(false);
-    const [isProgressHidden, setIsProgressHidden] = useState(false);
 
     const scrollRef = useRef();
 
@@ -26,11 +23,10 @@ const NewsScreen = () => {
     }, []);
 
     const fetchData = async () => {
-        setIsProgressHidden(false);
         try {
-            await fetchNews(setSortedFeed, setRefreshing, setIsProgressHidden);
-        } finally {
-            setIsProgressHidden(true);
+            await fetchNews(setSortedFeed, setRefreshing);
+        } catch (err) {
+            console.error('Error fetching or parsing RSS feeds:', err);
         }
     };
 
@@ -50,17 +46,24 @@ const NewsScreen = () => {
         []
     );
 
+    const formatDate = (date) => {
+        return new Date(date)
+            .toLocaleString('el-GR', {
+                hour12: false,
+                timeZone: 'Europe/Athens',
+                day: '2-digit',
+                month: '2-digit',
+                year: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit',
+            })
+            .replace(/\//g, '.')
+            .replace(',', '')
+            .substring(0, 16);
+    };
+
     return (
         <Screen>
-            {!isProgressHidden && (
-                <View style={styles.progress}>
-                    <Progress.CircleSnail
-                        color={[colors.red, colors.green, colors.blue]}
-                        hidesWhenStopped={isProgressHidden}
-                        size={50}
-                    />
-                </View>
-            )}
             <FlatList
                 data={sortedFeed}
                 onLayout={() => {
@@ -91,22 +94,6 @@ const NewsScreen = () => {
             </View>
         </Screen>
     );
-};
-
-const formatDate = (date) => {
-    return new Date(date)
-        .toLocaleString('el-GR', {
-            hour12: false,
-            timeZone: 'Europe/Athens',
-            day: '2-digit',
-            month: '2-digit',
-            year: 'numeric',
-            hour: '2-digit',
-            minute: '2-digit',
-        })
-        .replace(/\//g, '.')
-        .replace(',', '')
-        .substring(0, 16);
 };
 
 const styles = StyleSheet.create({
