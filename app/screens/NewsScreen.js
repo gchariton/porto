@@ -11,10 +11,12 @@ import Screen from './Screen';
 import NewsTile from '../components/NewsTile';
 import colors from '../config/colors';
 import { fetchNews } from '../functions/fetchNews';
+import ActivityIndicatorModal from '../components/ActivityIndicatorModal';
 
 const NewsScreen = () => {
     const [sortedFeed, setSortedFeed] = useState([]);
     const [refreshing, setRefreshing] = useState(false);
+    const [showActivityIndicator, setShowActivityIndicator] = useState(false);
 
     const scrollRef = useRef();
 
@@ -23,15 +25,23 @@ const NewsScreen = () => {
     }, []);
 
     const fetchData = async () => {
+        setShowActivityIndicator(true);
         try {
-            await fetchNews(setSortedFeed, setRefreshing);
+            await fetchNews(
+                setSortedFeed,
+                setRefreshing,
+                setShowActivityIndicator
+            );
         } catch (err) {
             console.error('Error fetching or parsing RSS feeds:', err);
+        } finally {
+            setShowActivityIndicator(false);
         }
     };
 
     const onRefresh = useCallback(() => {
         setRefreshing(true);
+        setShowActivityIndicator(true);
         fetchData();
     }, []);
 
@@ -64,6 +74,9 @@ const NewsScreen = () => {
 
     return (
         <Screen>
+            {showActivityIndicator && (
+                <ActivityIndicatorModal message={'Loading news...'} />
+            )}
             <FlatList
                 data={sortedFeed}
                 onLayout={() => {
@@ -102,13 +115,6 @@ const styles = StyleSheet.create({
         padding: 5,
         position: 'relative',
         zIndex: 2,
-    },
-    progress: {
-        alignItems: 'center',
-        justifyContent: 'center',
-        margin: 20,
-        position: 'absolute',
-        zIndex: 1,
     },
     upbutton: {
         alignItems: 'center',
