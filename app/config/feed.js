@@ -3,7 +3,6 @@ const news = [
     'https://www.cnn.gr/eidhseis?format=feed&type=rss',
     'https://www.enikos.gr/feed/',
     'https://www.ertnews.gr/feed/',
-    'https://www.e-thessalia.gr/feed/',
     'https://www.fosonline.gr/news?format=feed&type=rss',
     'https://www.gegonota.news/feed/',
     'https://www.naftemporiki.gr/rssFeed',

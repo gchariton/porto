@@ -1,16 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-
 import NumberFrame from '../components/NumberFrame';
 import colors from '../config/colors';
 import fetchLatestTzokerDraw from '../functions/fetchLatestTzokerDraw';
+import ActivityIndicatorModal from '../components/ActivityIndicatorModal';
 
 function LatestTzokerDraw() {
     const [tzokerDraw, setTzokerDraw] = useState(null);
     const [orderedNumbers, setOrderedNumbers] = useState([]);
+    const [showActivityIndicator, setShowActivityIndicator] = useState(false);
 
     const fetchDrawData = async () => {
         try {
+            setShowActivityIndicator(true);
             const data = await fetchLatestTzokerDraw();
             setTzokerDraw(data);
             setOrderedNumbers(
@@ -18,6 +20,8 @@ function LatestTzokerDraw() {
             );
         } catch (error) {
             console.error('Error fetching latest tzoker draw:', error);
+        } finally {
+            setShowActivityIndicator(false);
         }
     };
 
@@ -27,10 +31,14 @@ function LatestTzokerDraw() {
 
     if (!tzokerDraw) return null;
 
-    // Format date
-    const formattedDate = new Date(
-        Number(tzokerDraw.last.drawTime)
-    ).toDateString();
+    // Format date to Greek format
+    const formattedDate = new Date(Number(tzokerDraw.last.drawTime));
+    const formattedDateString = new Intl.DateTimeFormat('el-GR', {
+        weekday: 'long',
+        day: '2-digit',
+        month: '2-digit',
+        // year: 'numeric',
+    }).format(formattedDate);
 
     // Render ordered numbers
     const renderNumberFrames = orderedNumbers.map((num, index) => (
@@ -40,7 +48,7 @@ function LatestTzokerDraw() {
     return (
         <View style={styles.latestdraw}>
             <View style={styles.drawtime}>
-                <Text style={styles.text}>{formattedDate}</Text>
+                <Text style={styles.text}>{formattedDateString}</Text>
                 <TouchableOpacity
                     style={styles.refresh}
                     onPress={fetchDrawData}
@@ -65,6 +73,9 @@ function LatestTzokerDraw() {
                     : `Αποτέλεσμα: ${tzokerDraw.last.prizeCategories[0].winners}{' '}
                 νικητές!`}
             </Text>
+            {showActivityIndicator && (
+                <ActivityIndicatorModal message={'Loading...'} />
+            )}
         </View>
     );
 }
@@ -104,8 +115,7 @@ const styles = StyleSheet.create({
         color: colors.white,
         flexWrap: 'wrap',
         fontFamily: 'Roboto',
-        fontWeight: 'bold',
-        letterSpacing: 2,
+        fontSize: 20,
         padding: 10,
     },
     text: {

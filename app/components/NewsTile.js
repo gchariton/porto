@@ -1,5 +1,12 @@
 import React, { memo } from 'react';
-import { Share, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import {
+    Image,
+    Share,
+    StyleSheet,
+    Text,
+    TouchableOpacity,
+    View,
+} from 'react-native';
 import { Swipeable } from 'react-native-gesture-handler';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 
@@ -30,9 +37,21 @@ const NewsTile = ({ feed, formattedDate }) => {
         </View>
     );
 
+    // Extract image from content if available
+    const imageUrl = extractImageFromContent(feed.content);
+
     return (
         <Swipeable friction={1} renderRightActions={renderRightActions}>
             <View style={styles.container}>
+                {/* Render image if imageUrl is found */}
+                {imageUrl && (
+                    <Image
+                        source={{ uri: imageUrl }}
+                        style={styles.image}
+                        resizeMode='cover'
+                    />
+                )}
+
                 <TextHyperlink
                     style={styles.title}
                     text={feed.title}
@@ -53,6 +72,16 @@ const NewsTile = ({ feed, formattedDate }) => {
     );
 };
 
+// Function to extract image from 'content' field using regex
+const extractImageFromContent = (content) => {
+    if (!content) return null;
+
+    // Regex to find the first image URL in <img> tag
+    const imgRegex = /<img[^>]+src="([^">]+)"/;
+    const match = content.match(imgRegex);
+    return match ? match[1] : null;
+};
+
 const styles = StyleSheet.create({
     container: {
         backgroundColor: colors.secondary,
@@ -62,6 +91,12 @@ const styles = StyleSheet.create({
         marginBottom: 10,
         marginTop: 10,
         padding: 10,
+    },
+    image: {
+        width: '100%',
+        height: 100,
+        borderRadius: 10,
+        marginBottom: 10,
     },
     dateContainer: {
         alignItems: 'center',
