@@ -68,10 +68,8 @@ function LatestTzokerDraw() {
                 {tzokerDraw.last.prizeCategories[0].winners === 0
                     ? 'Αποτέλεσμα: ΤΖΑΚ ΠΟΤ!'
                     : tzokerDraw.last.prizeCategories[0].winners === 1
-                    ? `Αποτέλεσμα: ${tzokerDraw.last.prizeCategories[0].winners}{' '}
-                νικητής!`
-                    : `Αποτέλεσμα: ${tzokerDraw.last.prizeCategories[0].winners}{' '}
-                νικητές!`}
+                    ? `Αποτέλεσμα: Βρέθηκε ${tzokerDraw.last.prizeCategories[0].winners} νικητής!`
+                    : `Αποτέλεσμα: Βρέθηκαν ${tzokerDraw.last.prizeCategories[0].winners} νικητές!`}
             </Text>
             {showActivityIndicator && (
                 <ActivityIndicatorModal message={'Loading...'} />
