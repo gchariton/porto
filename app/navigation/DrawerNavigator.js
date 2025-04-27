@@ -52,7 +52,7 @@ const DrawerNavigator = () => {
                 }}
             />
             <Drawer.Screen
-                name='ΤΖΟΚΕΡ'
+                name='Joker'
                 component={TzokerScreen}
                 options={{
                     drawerIcon: ({ color, size }) => (

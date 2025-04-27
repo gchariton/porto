@@ -102,6 +102,7 @@ const styles = StyleSheet.create({
     },
 
     searchbox: {
+        alignSelf: 'center',
         backgroundColor: colors.secondary,
         borderColor: 'gray',
         borderWidth: 1,

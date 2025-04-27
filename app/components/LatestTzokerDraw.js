@@ -1,5 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import {
+    FlatList,
+    StyleSheet,
+    Text,
+    TouchableOpacity,
+    View,
+} from 'react-native';
 import NumberFrame from '../components/NumberFrame';
 import colors from '../config/colors';
 import fetchLatestTzokerDraw from '../functions/fetchLatestTzokerDraw';
@@ -15,6 +21,8 @@ function LatestTzokerDraw() {
             setShowActivityIndicator(true);
             const data = await fetchLatestTzokerDraw();
             setTzokerDraw(data);
+            console.log(JSON.stringify(data, null, 2));
+
             setOrderedNumbers(
                 data.last.winningNumbers.list.sort((a, b) => a - b)
             );
@@ -31,19 +39,70 @@ function LatestTzokerDraw() {
 
     if (!tzokerDraw) return null;
 
-    // Format date to Greek format
     const formattedDate = new Date(Number(tzokerDraw.last.drawTime));
     const formattedDateString = new Intl.DateTimeFormat('el-GR', {
         weekday: 'long',
         day: '2-digit',
         month: '2-digit',
-        // year: 'numeric',
     }).format(formattedDate);
 
-    // Render ordered numbers
     const renderNumberFrames = orderedNumbers.map((num, index) => (
         <NumberFrame key={index} number={num} />
     ));
+
+    const prizeLabels = {
+        1: '5+1',
+        2: '5',
+        3: '4+1',
+        4: '4',
+        5: '3+1',
+        6: '3',
+        7: '2+1',
+        8: '1+1',
+        9: '2',
+    };
+
+    const formatMoney = (amount) => {
+        if (amount === 0) return '-';
+        return amount.toLocaleString('el-GR', { minimumFractionDigits: 2 });
+    };
+
+    const renderTableHeader = () => (
+        <View
+            style={[
+                styles.tableRow,
+                {
+                    borderBottomWidth: 1,
+                    borderBottomColor: 'white',
+                    borderTopWidth: 1,
+                    borderTopColor: 'white',
+                    marginTop: 20,
+                },
+            ]}
+        >
+            <Text style={[styles.text, styles.tableHeaderCell]}>Κατηγορία</Text>
+            <Text style={[styles.text, styles.tableHeaderCell]}>Επιτυχίες</Text>
+            <Text style={[styles.text, styles.tableHeaderCell]}>
+                Κέρδη ανά επιτυχία
+            </Text>
+        </View>
+    );
+
+    const renderTableItem = ({ item }) => (
+        <View style={styles.tableRow}>
+            <Text style={[styles.text, styles.tableCell]}>
+                {prizeLabels[item.id] || item.id}
+            </Text>
+            <Text style={[styles.text, styles.tableCell]}>
+                {item.winners === 0 ? '-' : item.winners}
+            </Text>
+            <Text style={[styles.text, styles.tableCell]}>
+                {item.winners === 0 && item.categoryType === 'JACKPOT'
+                    ? 'ΤΖΑΚΠΟΤ'
+                    : formatMoney(item.divident)}
+            </Text>
+        </View>
+    );
 
     return (
         <View style={styles.latestdraw}>
@@ -64,13 +123,13 @@ function LatestTzokerDraw() {
                     />
                 </View>
             </View>
-            <Text style={styles.resulttext}>
-                {tzokerDraw.last.prizeCategories[0].winners === 0
-                    ? 'Αποτέλεσμα: ΤΖΑΚ ΠΟΤ!'
-                    : tzokerDraw.last.prizeCategories[0].winners === 1
-                    ? `Αποτέλεσμα: Βρέθηκε ${tzokerDraw.last.prizeCategories[0].winners} νικητής!`
-                    : `Αποτέλεσμα: Βρέθηκαν ${tzokerDraw.last.prizeCategories[0].winners} νικητές!`}
-            </Text>
+
+            {renderTableHeader()}
+            <FlatList
+                data={tzokerDraw.last.prizeCategories}
+                keyExtractor={(item) => item.id.toString()}
+                renderItem={renderTableItem}
+            />
             {showActivityIndicator && (
                 <ActivityIndicatorModal message={'Loading...'} />
             )}
@@ -115,11 +174,27 @@ const styles = StyleSheet.create({
         fontFamily: 'Roboto',
         fontSize: 20,
         padding: 10,
+        textAlign: 'center',
     },
     text: {
         color: colors.white,
         fontFamily: 'Roboto',
         padding: 5,
+    },
+    tableRow: {
+        alignItems: 'center',
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        paddingVertical: 5,
+    },
+    tableHeaderCell: {
+        flex: 1,
+        fontWeight: 'bold',
+        textAlign: 'center',
+    },
+    tableCell: {
+        flex: 1,
+        textAlign: 'center',
     },
 });
 
