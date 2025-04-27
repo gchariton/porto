@@ -37,12 +37,6 @@
                     "project": "porto"
                 }
             ]
-        ],
-        "runtimeVersion": {
-            "policy": "appVersion"
-        },
-        "updates": {
-            "url": "https://u.expo.dev/8620c65c-2b9e-460b-b26a-fa63415a884a"
-        }
+        ]
     }
 }

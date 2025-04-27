@@ -6,10 +6,7 @@ import colors from '../config/colors';
 function Screen({ children, style }) {
     return (
         <View style={[styles.container, style]}>
-            <StatusBar
-                backgroundColor={colors.primary}
-                //barStyle='light-content'
-            />
+            <StatusBar backgroundColor={colors.primary} />
             {children}
         </View>
     );
@@ -17,11 +14,8 @@ function Screen({ children, style }) {
 
 const styles = StyleSheet.create({
     container: {
-        alignItems: 'center',
-        backgroundColor: colors.primary,
         flex: 1,
-        height: '100%',
-        justifyContent: 'center',
+        backgroundColor: colors.primary,
         width: '100%',
     },
 });

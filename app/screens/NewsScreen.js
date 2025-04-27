@@ -1,11 +1,11 @@
 import React, { useEffect, useRef, useState, useCallback } from 'react';
 import {
-    FlatList,
     RefreshControl,
     StyleSheet,
     TouchableOpacity,
     View,
 } from 'react-native';
+import { FlashList } from '@shopify/flash-list';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import Screen from './Screen';
 import NewsTile from '../components/NewsTile';
@@ -73,29 +73,29 @@ const NewsScreen = () => {
     };
 
     return (
-        <Screen>
+        <Screen style={{ flex: 1 }}>
             {showActivityIndicator && (
                 <ActivityIndicatorModal message={'Loading news...'} />
             )}
-            <FlatList
-                data={sortedFeed}
-                onLayout={() => {
-                    scrollRef.current = scrollRef.current || scrollRef;
-                }}
-                ref={scrollRef}
-                style={styles.container}
-                refreshControl={
-                    <RefreshControl
-                        refreshing={refreshing}
-                        onRefresh={onRefresh}
-                        colors={[colors.red, colors.green, colors.blue]}
-                        progressBackgroundColor={colors.primary}
-                        size='large'
-                    />
-                }
-                renderItem={renderItem}
-                keyExtractor={(item) => item.id}
-            />
+            <View style={styles.container}>
+                <FlashList
+                    data={sortedFeed}
+                    estimatedItemSize={340}
+                    ref={scrollRef}
+                    refreshControl={
+                        <RefreshControl
+                            refreshing={refreshing}
+                            onRefresh={onRefresh}
+                            colors={[colors.red, colors.green, colors.blue]}
+                            progressBackgroundColor={colors.primary}
+                            size='large'
+                        />
+                    }
+                    renderItem={renderItem}
+                    keyExtractor={(item) => item.id}
+                    contentContainerStyle={{ padding: 5 }}
+                />
+            </View>
             <View style={styles.upbutton}>
                 <TouchableOpacity onPress={onPressScrollToTop}>
                     <MaterialCommunityIcons
@@ -111,10 +111,9 @@ const NewsScreen = () => {
 
 const styles = StyleSheet.create({
     container: {
+        flex: 1,
         margin: 5,
-        padding: 5,
         position: 'relative',
-        zIndex: 2,
     },
     upbutton: {
         alignItems: 'center',
@@ -126,6 +125,7 @@ const styles = StyleSheet.create({
         position: 'absolute',
         right: 20,
         width: 58,
+        zIndex: 2,
     },
 });
 

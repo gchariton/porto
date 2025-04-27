@@ -1,13 +1,9 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
-
 import Weather from '../components/Weather';
-
 import Screen from './Screen';
 import LoginScreen from './LoginScreen';
 import colors from '../config/colors';
-
-const logoImage = require('../assets/logo.png');
 
 const HomeScreen = ({ navigation }) => {
     return (
