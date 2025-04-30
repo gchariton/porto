@@ -26,7 +26,7 @@ function AboutScreen({}) {
                     />
                 </View>
                 <View style={styles.container}>
-                    <Text style={styles.text}>Updated: 27 Dec 2024</Text>
+                    <Text style={styles.text}>Updated: 30 Apr 2025</Text>
                 </View>
                 <View style={styles.attention}>
                     <Text style={styles.text}>
