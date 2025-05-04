@@ -6,6 +6,7 @@ import { enableScreens } from 'react-native-screens';
 
 enableScreens();
 
+// Main App
 function App() {
     return (
         <GestureHandlerRootView style={{ flex: 1 }}>
