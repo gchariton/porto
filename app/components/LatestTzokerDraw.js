@@ -130,6 +130,16 @@ function LatestTzokerDraw() {
                 keyExtractor={(item) => item.id.toString()}
                 renderItem={renderTableItem}
             />
+            <Text style={styles.resulttext}>
+                {new Intl.NumberFormat('el-GR', {
+                    minimumFractionDigits: 2,
+                    maximumFractionDigits: 2,
+                }).format(
+                    parseFloat(tzokerDraw.last.prizeCategories[0].distributed) +
+                        parseFloat(tzokerDraw.last.prizeCategories[0].jackpot)
+                ) + ' €'}
+            </Text>
+
             {showActivityIndicator && (
                 <ActivityIndicatorModal message={'Loading...'} />
             )}

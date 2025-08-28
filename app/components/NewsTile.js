@@ -37,21 +37,9 @@ const NewsTile = ({ feed, formattedDate }) => {
         </View>
     );
 
-    // Extract image from content if available
-    const imageUrl = extractImageFromContent(feed.content);
-
     return (
         <Swipeable friction={1} renderRightActions={renderRightActions}>
             <View style={styles.container}>
-                {/* Render image if imageUrl is found */}
-                {imageUrl && (
-                    <Image
-                        source={{ uri: imageUrl }}
-                        style={styles.image}
-                        resizeMode='cover'
-                    />
-                )}
-
                 <TextHyperlink
                     style={styles.title}
                     text={feed.title}
