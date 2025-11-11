@@ -13,6 +13,8 @@
         "production": {
             "android": {
                 "buildType": "app-bundle",
+                "gradleCommand": ":app:bundleRelease",
+                "credentialsSource": "local",
                 "image": "latest"
             },
             "channel": "production",

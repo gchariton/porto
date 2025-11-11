@@ -41,7 +41,10 @@
           "organization": "george-charitonidis",
           "project": "porto"
         }
-      ]
+      ],
+      "expo-secure-store",
+      "expo-asset",
+      "expo-font"
     ],
     "runtimeVersion": {
       "policy": "appVersion"
